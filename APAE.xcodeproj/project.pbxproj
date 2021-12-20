@@ -16,6 +16,8 @@
 		B207E7002770CEE7007C1870 /* APAETests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B207E6FF2770CEE7007C1870 /* APAETests.swift */; };
 		B207E70A2770CEE8007C1870 /* APAEUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B207E7092770CEE8007C1870 /* APAEUITests.swift */; };
 		B207E70C2770CEE8007C1870 /* APAEUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B207E70B2770CEE8007C1870 /* APAEUITestsLaunchTests.swift */; };
+		B207E7192770D064007C1870 /* APICaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = B207E7182770D064007C1870 /* APICaller.swift */; };
+		B2D1D91B27710AAB00695579 /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D1D91A27710AAB00695579 /* NewsTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,8 @@
 		B207E7052770CEE8007C1870 /* APAEUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = APAEUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B207E7092770CEE8007C1870 /* APAEUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APAEUITests.swift; sourceTree = "<group>"; };
 		B207E70B2770CEE8007C1870 /* APAEUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APAEUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		B207E7182770D064007C1870 /* APICaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICaller.swift; sourceTree = "<group>"; };
+		B2D1D91A27710AAB00695579 /* NewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +110,8 @@
 				B207E6F12770CEE7007C1870 /* Assets.xcassets */,
 				B207E6F32770CEE7007C1870 /* LaunchScreen.storyboard */,
 				B207E6F62770CEE7007C1870 /* Info.plist */,
+				B207E7182770D064007C1870 /* APICaller.swift */,
+				B2D1D91A27710AAB00695579 /* NewsTableViewCell.swift */,
 			);
 			path = APAE;
 			sourceTree = "<group>";
@@ -260,7 +266,9 @@
 			files = (
 				B207E6ED2770CEE5007C1870 /* ViewController.swift in Sources */,
 				B207E6E92770CEE5007C1870 /* AppDelegate.swift in Sources */,
+				B2D1D91B27710AAB00695579 /* NewsTableViewCell.swift in Sources */,
 				B207E6EB2770CEE5007C1870 /* SceneDelegate.swift in Sources */,
+				B207E7192770D064007C1870 /* APICaller.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
