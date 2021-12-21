@@ -40,8 +40,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                            NewsTableViewCellViewModel(
                             title: $0.title,
                             subtitle: $0.description ?? "Sem Descrição para mostrar",
-                            imageURL: URL(string: $0.urlToImage ?? "")
+                            imageURL: URL(string: $0.urlToImage ?? ""),
+                            author: $0.author ?? "Sem autor",
+                            publishedAt: $0.publishedAt ?? ""
                            )
+                        
                        })
                        
                   
@@ -104,7 +107,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 150
+        return 400
     }
     
     //Search
@@ -122,7 +125,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     NewsTableViewCellViewModel(
                      title: $0.title,
                      subtitle: $0.description ?? "Sem Descrição para mostrar",
-                     imageURL: URL(string: $0.urlToImage ?? "")
+                     imageURL: URL(string: $0.urlToImage ?? ""),
+                     author: $0.author ?? "",
+                     publishedAt: $0.publishedAt ?? ""
                     )
                 })
                 
@@ -137,7 +142,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
             
         }
-        print(text)
     }
 
 }
