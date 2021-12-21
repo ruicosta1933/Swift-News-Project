@@ -105,9 +105,9 @@ static let identifier = "NewsTableViewCell"
             height: contentView.frame.size.height/2
         )
         authorLabel.frame = CGRect(
-            x: contentView.frame.size.width-1403,
+            x: contentView.frame.size.width-140,
             y: 5,
-            width: contentView.frame.size.width-40,
+            width: contentView.frame.size.width-70,
             height: contentView.frame.size.height+320
         )
         publishedAtLabel.frame = CGRect(

@@ -6,7 +6,7 @@ final class APICaller {
     struct Constants {
         static let toHeadlinesURL = URL(string: "https://api.spaceflightnewsapi.net/v3/articles")
         
-        static let searchUrlString = "https://newsapi.org/v2/everything?language=pt&sortedBy=popularity&apiKey=1d7225c5d26242dca298f42bbea8e1b8&q="
+        static let searchUrlString = "https://api.spaceflightnewsapi.net/v3/articles?title_contains="
     }
     
     private init() {}
@@ -60,11 +60,10 @@ final class APICaller {
             }
             else if let data = data {
                 do {
-                    let result = try JSONDecoder().decode(APIResponse.self, from: data)
+                    let result = try JSONDecoder().decode([Article].self, from: data)
                     
-                    print("Articles: \(result)")
                     
-                    completion(.success(result.articles))
+                    completion(.success(result))
                 }
                 catch {
                     completion(.failure(error))
