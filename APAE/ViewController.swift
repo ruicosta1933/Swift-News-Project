@@ -39,9 +39,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                        self?.viewModels = articles.compactMap({
                            NewsTableViewCellViewModel(
                             title: $0.title,
-                            subtitle: $0.description ?? "Sem Descrição para mostrar",
-                            imageURL: URL(string: $0.urlToImage ?? ""),
-                            author: $0.author ?? "Sem autor",
+                            summary: $0.summary ?? "Sem Descrição para mostrar",
+                            imageURL: URL(string: $0.imageUrl ?? ""),
+                            newsSite: $0.newsSite ?? "Sem autor",
                             publishedAt: $0.publishedAt ?? ""
                            )
                         
@@ -124,9 +124,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self?.viewModels = articles.compactMap({
                     NewsTableViewCellViewModel(
                      title: $0.title,
-                     subtitle: $0.description ?? "Sem Descrição para mostrar",
-                     imageURL: URL(string: $0.urlToImage ?? ""),
-                     author: $0.author ?? "",
+                     summary: $0.summary ?? "Sem Descrição para mostrar",
+                     imageURL: URL(string: $0.imageUrl ?? ""),
+                     newsSite: $0.newsSite ?? "",
                      publishedAt: $0.publishedAt ?? ""
                     )
                 })

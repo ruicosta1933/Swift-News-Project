@@ -4,7 +4,7 @@ final class APICaller {
     static let shared = APICaller()
 
     struct Constants {
-        static let toHeadlinesURL = URL(string: "https://newsapi.org/v2/top-headlines?country=pt&apiKey=1d7225c5d26242dca298f42bbea8e1b8")
+        static let toHeadlinesURL = URL(string: "https://api.spaceflightnewsapi.net/v3/articles")
         
         static let searchUrlString = "https://newsapi.org/v2/everything?language=pt&sortedBy=popularity&apiKey=1d7225c5d26242dca298f42bbea8e1b8&q="
     }
@@ -12,6 +12,7 @@ final class APICaller {
     private init() {}
     
     public func getTopNews(completion: @escaping (Result<[Article], Error>) -> Void) {
+        
         guard let url = Constants.toHeadlinesURL else {
             return
         }
@@ -21,14 +22,16 @@ final class APICaller {
                 completion(.failure(error))
             }
             else if let data = data {
+                
                 do {
-                    let result = try JSONDecoder().decode(APIResponse.self, from: data)
                     
-                    print("Articles: \(result.articles.count)")
+                    let result = try JSONDecoder().decode([Article].self, from: data)
                     
-                    completion(.success(result.articles))
+                   
+                    completion(.success(result))
                 }
                 catch {
+                    print("AAAAAAAA")
                     completion(.failure(error))
                 }
             }
@@ -59,7 +62,7 @@ final class APICaller {
                 do {
                     let result = try JSONDecoder().decode(APIResponse.self, from: data)
                     
-                    print("Articles: \(result.articles.count)")
+                    print("Articles: \(result)")
                     
                     completion(.success(result.articles))
                 }
@@ -79,16 +82,12 @@ struct APIResponse: Codable {
 }
 
 struct Article: Codable {
-    let source: Source
-    let author: String?
     let title: String
-    let description: String?
     let url: String?
-    let urlToImage: String?
+    let imageUrl: String?
+    let newsSite: String?
+    let summary: String?
     let publishedAt: String?
    
 }
 
-struct Source: Codable {
-    let name: String
-}

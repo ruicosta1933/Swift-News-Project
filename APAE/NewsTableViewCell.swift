@@ -9,23 +9,23 @@ import UIKit
 
 class NewsTableViewCellViewModel {
     let title : String
-    let subtitle : String
+    let summary : String
     let imageURL : URL?
     var imageData: Data? = nil
-    var author: String?
+    var newsSite: String?
     var publishedAt: String?
     
     init(
         title : String,
-        subtitle : String,
+        summary : String,
         imageURL : URL?,
-        author : String,
+        newsSite : String,
         publishedAt : String
     ){
         self.title = title
-        self.subtitle = subtitle
+        self.summary = summary
         self.imageURL = imageURL
-        self.author = author
+        self.newsSite = newsSite
         self.publishedAt = publishedAt
     }
 }
@@ -105,9 +105,9 @@ static let identifier = "NewsTableViewCell"
             height: contentView.frame.size.height/2
         )
         authorLabel.frame = CGRect(
-            x: contentView.frame.size.width-40,
+            x: contentView.frame.size.width-1403,
             y: 5,
-            width: contentView.frame.size.width-20,
+            width: contentView.frame.size.width-40,
             height: contentView.frame.size.height+320
         )
         publishedAtLabel.frame = CGRect(
@@ -132,8 +132,8 @@ static let identifier = "NewsTableViewCell"
     
     func configure(with viewModel : NewsTableViewCellViewModel ){
         newsTitleLabel.text = viewModel.title
-        subTitleLabel.text = viewModel.subtitle
-        authorLabel.text = viewModel.author
+        subTitleLabel.text = viewModel.summary
+        authorLabel.text = viewModel.newsSite
         publishedAtLabel.text = viewModel.publishedAt
         
         //Image
