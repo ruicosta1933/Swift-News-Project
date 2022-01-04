@@ -8,7 +8,7 @@
 import UIKit
 import SafariServices
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
+class UINews: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
 
     
     private let tableView: UITableView = {
@@ -26,14 +26,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "APAE"
+        title = "Blog"
         view.addSubview(tableView)
         tableView.delegate = self
         tableView.dataSource = self
         view.backgroundColor = .systemBackground
         
         
-        APICaller.shared.getTopNews { [weak self] result in
+        APICaller.shared.getBlog{ [weak self] result in
                    switch result {
                    case .success(let articles):
                        self?.articles = articles
@@ -48,8 +48,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                         
                        })
                        
-                  
-                       
                        DispatchQueue.main.async {
                            self?.tableView.reloadData()
                        }
@@ -59,15 +57,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                }
         // Do any additional setup after loading the view.
         
-        createSearchBar()
         
     }
     
-    
-    private func createSearchBar(){
-        navigationItem.searchController = searchVC
-        searchVC.searchBar.delegate = self
-    }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -112,38 +104,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     //Search
-    
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        guard let text = searchBar.text, !text.isEmpty else {
-            return
-        }
-        
-        APICaller.shared.search(with: text){ [weak self] result in
-            switch result {
-            case .success(let articles):
-                
-                self?.articles = articles
-                    self?.viewModels = articles.compactMap({
-                        NewsTableViewCellViewModel(
-                         title: $0.title,
-                         summary: $0.summary ?? "Sem Descrição para mostrar",
-                         imageURL: URL(string: $0.imageUrl ?? ""),
-                         newsSite: $0.newsSite ?? "",
-                         publishedAt: $0.publishedAt ?? ""
-                        )
-                    })
 
-                    DispatchQueue.main.async {
-                        self?.tableView.reloadData()
-                        self?.searchVC.dismiss(animated: true, completion: nil)
-                    }
-                
-            case .failure(let error):
-                print(error)
-            }
-            
-        }
-    }
 
 }
 

@@ -31,7 +31,9 @@ class NewsTableViewCellViewModel {
 }
 
 class NewsTableViewCell: UITableViewCell {
+    
 static let identifier = "NewsTableViewCell"
+    
     
     private let newsTitleLabel: UILabel = {
         let label = UILabel()

@@ -7,6 +7,8 @@ final class APICaller {
         static let toHeadlinesURL = URL(string: "https://api.spaceflightnewsapi.net/v3/articles")
         
         static let searchUrlString = "https://api.spaceflightnewsapi.net/v3/articles?title_contains="
+        
+        static let topBlogs = URL(string: "https://api.spaceflightnewsapi.net/v3/blogs")
     }
     
     private init() {}
@@ -31,7 +33,33 @@ final class APICaller {
                     completion(.success(result))
                 }
                 catch {
-                    print("AAAAAAAA")
+                    completion(.failure(error))
+                }
+            }
+        }
+        task.resume()
+    }
+    
+    public func getBlog(completion: @escaping (Result<[Article], Error>) -> Void) {
+        
+        guard let url = Constants.topBlogs else {
+            return
+        }
+        
+        let task = URLSession.shared.dataTask(with: url) { data, _, error in
+            if let error = error {
+                completion(.failure(error))
+            }
+            else if let data = data {
+                
+                do {
+                    
+                    let result = try JSONDecoder().decode([Article].self, from: data)
+                    
+                   
+                    completion(.success(result))
+                }
+                catch {
                     completion(.failure(error))
                 }
             }
@@ -40,11 +68,9 @@ final class APICaller {
     }
     
     
-    
-    
     public func search(with query: String, completion: @escaping (Result<[Article], Error>) -> Void) {
         guard !query.trimmingCharacters(in: .whitespaces).isEmpty else {
-            return
+            return 
         }
         
         
@@ -61,7 +87,6 @@ final class APICaller {
             else if let data = data {
                 do {
                     let result = try JSONDecoder().decode([Article].self, from: data)
-                    
                     
                     completion(.success(result))
                 }
