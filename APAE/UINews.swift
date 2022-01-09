@@ -26,7 +26,7 @@ class UINews: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Blog"
+        title = "Blog APAE"
         view.addSubview(tableView)
         tableView.delegate = self
         tableView.dataSource = self
