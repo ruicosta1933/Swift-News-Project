@@ -45,7 +45,6 @@ class UINews: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
                             newsSite: $0.newsSite ?? "Sem autor",
                             publishedAt: $0.publishedAt ?? ""
                            )
-                        
                        })
                        
                        DispatchQueue.main.async {

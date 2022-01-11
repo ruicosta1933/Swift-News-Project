@@ -97,14 +97,27 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         tableView.deselectRow(at: indexPath, animated: true)
+        
+      guard let vc = storyboard?.instantiateViewController(withIdentifier: "DetailsViewController") as? DetailsViewController
+        else{
+            return
+        }
+        
+        vc.article = articles[indexPath.row]
+          navigationController?.pushViewController(vc, animated: true)
+        
+        
+    /*
         let article = articles[indexPath.row]
         
         guard let url = URL (string: article.url ?? "") else {
             return
         }
         let vc = SFSafariViewController(url: url)
-        present(vc, animated: true)
+        present(vc, animated: true)*/
+        
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -112,7 +125,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     //Search
-    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let text = searchBar.text, !text.isEmpty else {
             return
