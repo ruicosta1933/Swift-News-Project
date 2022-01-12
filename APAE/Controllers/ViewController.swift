@@ -40,16 +40,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                        self?.viewModels = articles.compactMap({
                            NewsTableViewCellViewModel(
                             title: $0.title,
-                            summary: $0.summary ?? "Sem Descrição para mostrar",
                             imageURL: URL(string: $0.imageUrl ?? ""),
                             newsSite: $0.newsSite ?? "Sem autor",
                             publishedAt: $0.publishedAt ?? ""
                            )
                         
                        })
-                       
-                  
-                       
                        DispatchQueue.main.async {
                            self?.tableView.reloadData()
                        }
@@ -106,6 +102,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         
         vc.article = articles[indexPath.row]
+        vc.image = viewModels[indexPath.row].imageData
+        
           navigationController?.pushViewController(vc, animated: true)
         
         
@@ -138,7 +136,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     self?.viewModels = articles.compactMap({
                         NewsTableViewCellViewModel(
                          title: $0.title,
-                         summary: $0.summary ?? "Sem Descrição para mostrar",
                          imageURL: URL(string: $0.imageUrl ?? ""),
                          newsSite: $0.newsSite ?? "",
                          publishedAt: $0.publishedAt ?? ""

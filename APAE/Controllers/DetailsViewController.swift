@@ -14,6 +14,7 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UISearchBarD
 static let identifier = "DetailsViewController"
     
     var article: Article?
+    var image: Data? = nil
     
     private let tableView: UITableView = {
         let table = UITableView()
@@ -29,7 +30,6 @@ static let identifier = "DetailsViewController"
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        createSearchBar()
         
         title = "Detail"
         
@@ -64,10 +64,7 @@ static let identifier = "DetailsViewController"
         
     }
     
-    private func createSearchBar(){
-        navigationItem.searchController = searchVC
-        searchVC.searchBar.delegate = self
-    }
+
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -93,9 +90,8 @@ static let identifier = "DetailsViewController"
         cell.newsTitleLabel.text = article?.title
         cell.subTitleLabel.text = article?.summary
         
-        
        // let data = viewModels?.imageData
-       // cell.newsImageView.image = UIImage(data: (data ?? viewModels?.imageData))
+        cell.newsImageView.image = UIImage(data: image!)
         
         
         return cell
@@ -117,7 +113,7 @@ static let identifier = "DetailsViewController"
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 400
+        return 1000
     }
 
 }

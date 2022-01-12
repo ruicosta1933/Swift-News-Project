@@ -35,10 +35,13 @@ class NewsDetailTableViewCell: UITableViewCell {
 static let identifier = "NewsDetailTableViewCell"
     
     
+    
+    
      let newsTitleLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 2
         label.font = .systemFont(ofSize: 22, weight: .semibold)
+         
         return label
     }()
      let subTitleLabel: UILabel = {
@@ -68,6 +71,34 @@ static let identifier = "NewsDetailTableViewCell"
         label.font = .systemFont(ofSize: 17, weight: .thin)
         return label
     }()
+    let textField: UITextField = {
+       let label = UITextField()
+        var red = UIColor(red: 100.0/255.0, green: 130.0/255.0, blue: 230.0/255.0, alpha: 1.0)
+        label.font = .systemFont(ofSize: 22, weight: .semibold)
+        label.layer.borderWidth = 2
+        label.layer.borderColor = red.cgColor
+        label.placeholder = " Nome"
+       return label
+   }()
+    let commentField: UITextView = {
+       let label = UITextView()
+        var red = UIColor(red: 100.0/255.0, green: 130.0/255.0, blue: 230.0/255.0, alpha: 1.0)
+        label.font = .systemFont(ofSize: 22, weight: .semibold)
+        label.layer.borderWidth = 2
+        label.layer.borderColor = red.cgColor
+       return label
+   }()
+    let buttonField: UIButton = {
+        let label = UIButton(type: .system)
+        var red = UIColor(red: 100.0/255.0, green: 130.0/255.0, blue: 230.0/255.0, alpha: 1.0)
+        label.frame =  CGRect(x: 20, y: 20, width: 100, height: 50)
+        label.setTitle("Comentar", for: .normal)
+        label.titleLabel?.font = .systemFont(ofSize: 17, weight: .semibold)
+        label.layer.borderWidth = 2
+        label.layer.borderColor = red.cgColor
+       return label
+   }()
+    
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -76,6 +107,9 @@ static let identifier = "NewsDetailTableViewCell"
         contentView.addSubview(newsImageView)
         contentView.addSubview(authorLabel)
         contentView.addSubview(publishedAtLabel)
+        contentView.addSubview(textField)
+        contentView.addSubview(buttonField)
+        contentView.addSubview(commentField)
         
     }
     
@@ -102,7 +136,7 @@ static let identifier = "NewsDetailTableViewCell"
         
         newsImageView.frame = CGRect(
             x: 5,
-            y: 5,
+            y: 0,
             width: contentView.frame.size.width-10,
             height: contentView.frame.size.height/2
         )
@@ -118,6 +152,24 @@ static let identifier = "NewsDetailTableViewCell"
             width: contentView.frame.size.width-70,
             height: contentView.frame.size.height+320
         )
+        buttonField.frame = CGRect(
+            x: contentView.frame.size.width/2.8,
+            y: 834,
+            width: 100,
+            height: 50
+        )
+        textField.frame = CGRect(
+            x: contentView.frame.size.width/4,
+            y: 700,
+            width: 200,
+            height: 30
+        )
+        commentField.frame = CGRect(
+            x: contentView.frame.size.width/4,
+            y: 732,
+            width: 200,
+            height: 100
+        )
         
     }
    
@@ -128,6 +180,7 @@ static let identifier = "NewsDetailTableViewCell"
         newsImageView.image = nil
         authorLabel.text = nil
         publishedAtLabel.text = nil
+        textField.text = nil
     }
     
     func configure(with viewModel : NewsDetailTableViewCellViewModel ){
