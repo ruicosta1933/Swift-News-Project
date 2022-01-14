@@ -1,0 +1,6 @@
+framework module Pods_APAE {
+  umbrella header "Pods-APAE-umbrella.h"
+
+  export *
+  module * { export * }
+}

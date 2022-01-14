@@ -7,6 +7,7 @@
 
 import UIKit
 import SafariServices
+import FirebaseDatabase
 
 class DetailsViewController: UIViewController, UITableViewDelegate, UISearchBarDelegate, UITableViewDataSource{
     
@@ -37,6 +38,16 @@ static let identifier = "DetailsViewController"
         tableView.delegate = self
         tableView.dataSource = self
         view.backgroundColor = .systemBackground
+        
+        
+        let ref = Database.database(url: "https://apae-d1ea4-default-rtdb.europe-west1.firebasedatabase.app").reference()
+        
+        ref.childByAutoId().setValue(["nome":"Diogo", "comentario":"excelente noticia"])
+        
+        print(ref)
+        
+        //ref.child("comentarios/comentario/nome").setValue("Miguel")
+        
       /*  self.viewModels = article({
             NewsDetailTableViewCellViewModel(
              title: $0.title,
@@ -76,7 +87,7 @@ static let identifier = "DetailsViewController"
      func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
          return 1
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: NewsDetailTableViewCell.identifier,

@@ -123,6 +123,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     //Search
+    
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        viewDidLoad()
+    }
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let text = searchBar.text, !text.isEmpty else {
             return
