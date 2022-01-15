@@ -23,7 +23,7 @@ static let identifier = "DetailsViewController"
         table.register(NewsDetailTableViewCell.self, forCellReuseIdentifier: NewsDetailTableViewCell.identifier)
         return table
     }()
-    
+    private let ref = Database.database(url: "https://apae-d1ea4-default-rtdb.europe-west1.firebasedatabase.app").reference()
     private let searchVC = UISearchController(searchResultsController: nil)
     private var viewModels : NewsDetailTableViewCellViewModel?
     
@@ -40,9 +40,7 @@ static let identifier = "DetailsViewController"
         view.backgroundColor = .systemBackground
         
         
-        let ref = Database.database(url: "https://apae-d1ea4-default-rtdb.europe-west1.firebasedatabase.app").reference()
         
-        ref.childByAutoId().setValue(["nome":"Diogo", "comentario":"excelente noticia"])
         
         print(ref)
         
@@ -84,6 +82,69 @@ static let identifier = "DetailsViewController"
         
     }
  
+    @objc func pressed() {
+        guard let cell = self.tableView.dequeueReusableCell(
+            withIdentifier: NewsDetailTableViewCell.identifier
+        )as? NewsDetailTableViewCell else {
+            fatalError()
+        }
+        
+        
+        
+        if cell.textField.placeholder != "" || cell.textField.text != nil {
+            
+            print(cell.textField.placeholder)
+            if cell.commentField.text != "" || cell.commentField.text != nil {
+                print(cell.commentField.delegate)
+                let alert = UIAlertController(title: "Sucesso", message: "O seu comentário foi enviado.", preferredStyle: .alert)
+
+                        // add an action (button)
+                        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+
+                        // show the alert
+                        self.present(alert, animated: true, completion: nil)
+            }
+            else{
+                print("O comentario nao esta preenchido")
+                let alert = UIAlertController(title: "Erro", message: "Ainda não fez o seu comentário.", preferredStyle: .alert)
+
+                        // add an action (button)
+                        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+
+                        // show the alert
+                        self.present(alert, animated: true, completion: nil)
+            }
+        }
+        else {
+            print("O nome nao esta preenchido")
+            let alert = UIAlertController(title: "Erro", message: "O seu nome não está preenchido.", preferredStyle: .alert)
+
+                    // add an action (button)
+                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+
+                    // show the alert
+                    self.present(alert, animated: true, completion: nil)
+        }
+        
+        
+        
+        
+        
+    }
+    @objc func liked() {
+        let link = article?.url
+        
+        ref.child("likes").setValue(["news" : link, "likes" : 1])
+        
+        let alert = UIAlertController(title: "Sucesso", message: "A sua avaliação foi registada.", preferredStyle: .alert)
+
+                // add an action (button)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+
+                // show the alert
+                self.present(alert, animated: true, completion: nil)
+    }
+    
      func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
          return 1
     }
