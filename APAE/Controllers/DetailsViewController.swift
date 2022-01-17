@@ -7,7 +7,7 @@
 
 import UIKit
 import SafariServices
-import FirebaseDatabase
+import Firebase
 
 class DetailsViewController: UIViewController, UITableViewDelegate, UISearchBarDelegate, UITableViewDataSource{
     
@@ -23,7 +23,8 @@ static let identifier = "DetailsViewController"
         table.register(NewsDetailTableViewCell.self, forCellReuseIdentifier: NewsDetailTableViewCell.identifier)
         return table
     }()
-    private let ref = Database.database(url: "https://apae-d1ea4-default-rtdb.europe-west1.firebasedatabase.app").reference()
+    
+    private let db = Firestore.firestore()
     private let searchVC = UISearchController(searchResultsController: nil)
     private var viewModels : NewsDetailTableViewCellViewModel?
     
@@ -38,14 +39,6 @@ static let identifier = "DetailsViewController"
         tableView.delegate = self
         tableView.dataSource = self
         view.backgroundColor = .systemBackground
-        
-        
-        
-        
-        print(ref)
-        
-        //ref.child("comentarios/comentario/nome").setValue("Miguel")
-        
       /*  self.viewModels = article({
             NewsDetailTableViewCellViewModel(
              title: $0.title,
@@ -56,6 +49,7 @@ static let identifier = "DetailsViewController"
             )
          
         })*/
+        
         
        /* NewsDetailTableViewCellViewModel(
         title: article?.title ?? "Sem Titulo" ,
@@ -73,6 +67,47 @@ static let identifier = "DetailsViewController"
         
     }
     
+    
+    @objc func pressed() {
+        let docId = String(article!.id)
+        
+        
+                db.collection("likes").document(docId).setData([
+                    "no_likes": FieldValue.increment(Int64(1))
+                ], merge: true) { err in
+                    if let err = err {
+                        print("Error writing document: (err)")
+                    }
+                }
+        
+        
+    }
+    @objc func commented() {
+        self.tableView.reloadData()
+        let docId = String(article!.id)
+        
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: NewsDetailTableViewCell.identifier
+        )as? NewsDetailTableViewCell else {
+            fatalError()
+        }
+        
+        let comment = cell.commentField.text
+        
+       /* db.collection("comments").document(docId).setData([
+            "id_article": docId,
+            "comentario": comment
+        ]) { err in
+            if let err = err {
+                print("Error writing document: (err)")
+            }
+        } */
+        
+        
+        
+        
+    }
+    
 
     
     override func viewDidLayoutSubviews() {
@@ -82,73 +117,10 @@ static let identifier = "DetailsViewController"
         
     }
  
-    @objc func pressed() {
-        guard let cell = self.tableView.dequeueReusableCell(
-            withIdentifier: NewsDetailTableViewCell.identifier
-        )as? NewsDetailTableViewCell else {
-            fatalError()
-        }
-        
-        
-        
-        if cell.textField.placeholder != "" || cell.textField.text != nil {
-            
-            print(cell.textField.placeholder)
-            if cell.commentField.text != "" || cell.commentField.text != nil {
-                print(cell.commentField.delegate)
-                let alert = UIAlertController(title: "Sucesso", message: "O seu comentário foi enviado.", preferredStyle: .alert)
-
-                        // add an action (button)
-                        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-
-                        // show the alert
-                        self.present(alert, animated: true, completion: nil)
-            }
-            else{
-                print("O comentario nao esta preenchido")
-                let alert = UIAlertController(title: "Erro", message: "Ainda não fez o seu comentário.", preferredStyle: .alert)
-
-                        // add an action (button)
-                        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-
-                        // show the alert
-                        self.present(alert, animated: true, completion: nil)
-            }
-        }
-        else {
-            print("O nome nao esta preenchido")
-            let alert = UIAlertController(title: "Erro", message: "O seu nome não está preenchido.", preferredStyle: .alert)
-
-                    // add an action (button)
-                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-
-                    // show the alert
-                    self.present(alert, animated: true, completion: nil)
-        }
-        
-        
-        
-        
-        
-    }
-    @objc func liked() {
-        let link = article?.url
-        
-        ref.child("likes").setValue(["news" : link, "likes" : 1])
-        
-        let alert = UIAlertController(title: "Sucesso", message: "A sua avaliação foi registada.", preferredStyle: .alert)
-
-                // add an action (button)
-                alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-
-                // show the alert
-                self.present(alert, animated: true, completion: nil)
-    }
-    
      func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
          return 1
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: NewsDetailTableViewCell.identifier,
@@ -162,6 +134,21 @@ static let identifier = "DetailsViewController"
         cell.newsTitleLabel.text = article?.title
         cell.subTitleLabel.text = article?.summary
         
+        let docId = String(article!.id)
+        
+        db.collection("likes").document(docId)
+            .addSnapshotListener { documentSnapshot, error in
+                guard let document = documentSnapshot else {
+                    print("Error fetching document: \(error!)")
+                    return
+                }
+                print (cell.likeField.text)
+                print (String(describing: document.get("no_likes") ?? "0"))
+//                let source = document.metadata.hasPendingWrites ? "Local" : "Server"
+                cell.likeField.text = String(describing: document.get("no_likes") ?? "0")
+            }
+        
+       
        // let data = viewModels?.imageData
         cell.newsImageView.image = UIImage(data: image!)
         

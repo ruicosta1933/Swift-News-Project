@@ -8,6 +8,7 @@
 import UIKit
 
 class NewsTableViewCellViewModel {
+    let id : Int
     let title : String
     let imageURL : URL?
     var imageData: Data? = nil
@@ -15,11 +16,13 @@ class NewsTableViewCellViewModel {
     var publishedAt: String?
     
     init(
+        id : Int,
         title : String,
         imageURL : URL?,
         newsSite : String,
         publishedAt : String
     ){
+        self.id = id
         self.title = title
         self.imageURL = imageURL
         self.newsSite = newsSite

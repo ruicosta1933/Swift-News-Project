@@ -43,7 +43,7 @@
         <scene sceneID="Zzq-zh-Qyh">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Yej-iF-hX6" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" image="house" catalog="system" id="73c-yl-98e"/>
+                    <tabBarItem key="tabBarItem" title="Item" id="73c-yl-98e"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="th9-8U-Inb">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
@@ -77,11 +77,11 @@
             </objects>
             <point key="canvasLocation" x="18.840579710144929" y="97.767857142857139"/>
         </scene>
-        <!--Blog APAE-->
+        <!--Item-->
         <scene sceneID="McO-k1-Ehh">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="iwl-Oj-X7R" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Blog APAE" image="book" catalog="system" id="i3H-Xu-bB4"/>
+                    <tabBarItem key="tabBarItem" title="Item" id="i3H-Xu-bB4"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="Gsk-1V-LSA">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
@@ -114,8 +114,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="book" catalog="system" width="128" height="99"/>
-        <image name="house" catalog="system" width="128" height="106"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

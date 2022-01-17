@@ -1,32 +1,31 @@
-//
-//  NewsTableViewCell.swift
-//  APAE
-//
-//  Created by Rui Costa on 20/12/2021.
-//
-
 import UIKit
 
 class NewsDetailTableViewCellViewModel {
+    let id : Int
     let title : String
     let summary : String
     let imageURL : URL?
     var imageData: Data? = nil
     var newsSite: String?
     var publishedAt: String?
+    var like : String
     
     init(
+        id : Int,
         title : String,
         summary : String,
         imageURL : URL?,
         newsSite : String,
-        publishedAt : String
+        publishedAt : String,
+        like: String
     ){
+        self.id = id
         self.title = title
         self.summary = summary
         self.imageURL = imageURL
         self.newsSite = newsSite
         self.publishedAt = publishedAt
+        self.like = like
     }
 }
 
@@ -85,6 +84,12 @@ static let identifier = "NewsDetailTableViewCell"
         label.layer.borderColor = UIColor.systemGray.cgColor
        return label
    }()
+    let likeField: UITextView = {
+       let label = UITextView()
+        label.font = .systemFont(ofSize: 17, weight: .thin)
+        
+       return label
+   }()
     let buttonField: UIButton = {
         let label = UIButton(type: .system)
         var red = UIColor(red: 0.0/255.0, green: 64.0/255.0, blue: 221.0/255.0, alpha: 1)
@@ -98,7 +103,7 @@ static let identifier = "NewsDetailTableViewCell"
         
         label.layer.borderColor = red.cgColor
         label.layer.backgroundColor = UIColor.systemBlue.cgColor
-        label.addTarget(self, action: #selector(DetailsViewController.pressed), for: .touchUpInside)
+        label.addTarget(self, action: #selector(DetailsViewController.commented), for: .touchUpInside)
        return label
    }()
     let likeButton: UIButton = {
@@ -113,7 +118,7 @@ static let identifier = "NewsDetailTableViewCell"
         label.layer.borderWidth = 1
         label.layer.borderColor = red.cgColor
         label.layer.backgroundColor = UIColor.systemBlue.cgColor
-        label.addTarget(self, action: #selector(DetailsViewController.liked), for: .touchUpInside)
+        label.addTarget(self, action: #selector(DetailsViewController.pressed), for: .touchUpInside)
        return label
    }()
     
@@ -129,6 +134,7 @@ static let identifier = "NewsDetailTableViewCell"
         contentView.addSubview(buttonField)
         contentView.addSubview(commentField)
         contentView.addSubview(likeButton)
+        contentView.addSubview(likeField)
         
     }
     
@@ -189,6 +195,12 @@ static let identifier = "NewsDetailTableViewCell"
             width: contentView.frame.size.width-10,
             height: 100
         )
+        likeField.frame = CGRect(
+            x: contentView.frame.size.width/2,
+            y: 920,
+            width: 50,
+            height: 35
+        )
         likeButton.frame = CGRect(
             x: contentView.frame.size.width/2,
             y: 880,
@@ -206,6 +218,7 @@ static let identifier = "NewsDetailTableViewCell"
         newsImageView.image = nil
         authorLabel.text = nil
         publishedAtLabel.text = nil
+        likeField.text = nil
     }
     
     func configure(with viewModel : NewsDetailTableViewCellViewModel ){
@@ -213,6 +226,7 @@ static let identifier = "NewsDetailTableViewCell"
         subTitleLabel.text = viewModel.summary
         authorLabel.text = viewModel.newsSite
         publishedAtLabel.text = viewModel.publishedAt
+        likeField.text = viewModel.like
         
         //Image
         

@@ -39,6 +39,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                        self?.articles = articles
                        self?.viewModels = articles.compactMap({
                            NewsTableViewCellViewModel(
+                            id: $0.id,
                             title: $0.title,
                             imageURL: URL(string: $0.imageUrl ?? ""),
                             newsSite: $0.newsSite ?? "Sem autor",
@@ -123,12 +124,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     //Search
-    
-    
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        viewDidLoad()
-    }
-    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let text = searchBar.text, !text.isEmpty else {
             return
@@ -141,6 +136,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self?.articles = articles
                     self?.viewModels = articles.compactMap({
                         NewsTableViewCellViewModel(
+                            id: $0.id,
                          title: $0.title,
                          imageURL: URL(string: $0.imageUrl ?? ""),
                          newsSite: $0.newsSite ?? "",
